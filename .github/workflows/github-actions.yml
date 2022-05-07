@@ -36,13 +36,17 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v10.1
 
-      - name: Setup dependencies
-        if: contains(steps.changed-files.outputs.all_modified_files, 'requirements.txt')
+      - name: Setup CDK dependencies
         run: |
-          pip install -r requirements.txt
           pip install -r requirements-dev.txt
           pip list
     
+      - name: Setup Layer dependencies
+        if: contains(steps.changed-files.outputs.all_modified_files, 'requirements.txt')
+        run: |
+          pip install -r requirements.txt
+          pip list
+
       - name: CDK Diff Check
         if: contains(github.event_name, 'pull_request')
         run: cdk diff

@@ -53,7 +53,7 @@ jobs:
 
       - name: CDK Diff Check
         run: |
-          cdk diff | tee comments
+          cdk diff | tee ./comments
           ls
         env:
           AWS_DEFAULT_REGION: 'ap-northeast-1'

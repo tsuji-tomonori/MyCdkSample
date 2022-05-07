@@ -60,7 +60,7 @@ class MyCdkSampleStack(Stack):
 
         loggroup_name = f"/aws/lambda/{fn.function_name}"
         logs.LogGroup(
-            self._scope, loggroup_name,
+            self, loggroup_name,
             log_group_name=loggroup_name,
             retention=logs.RetentionDays.THREE_MONTHS,
         )

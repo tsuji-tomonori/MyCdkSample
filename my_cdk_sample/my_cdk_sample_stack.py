@@ -60,7 +60,7 @@ class MyCdkSampleStack(Stack):
 
         loggroup_name = f"/aws/lambda/{fn.function_name}"
         logs.LogGroup(
-            self, loggroup_name,
+            self, build_resource_name("log", "cdk_sample_service"),
             log_group_name=loggroup_name,
             retention=logs.RetentionDays.THREE_MONTHS,
         )

@@ -1,6 +1,7 @@
 {
   "app": "python app.py",
   "requireApproval": "never",
+  "fail": true,
   "watch": {
     "include": [
       "**"

@@ -8,7 +8,6 @@ on:
       - 'docs/**'
       - 'README.md'
   pull_request:
-  workflow_dispatch:
 jobs:
   aws_cdk:
     runs-on: ubuntu-18.04

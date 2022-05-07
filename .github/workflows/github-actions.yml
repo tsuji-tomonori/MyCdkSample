@@ -44,7 +44,8 @@ jobs:
       - name: Setup Layer dependencies
         if: contains(steps.changed-files.outputs.all_modified_files, 'requirements.txt')
         run: |
-          pip install -r requirements.txt
+          mkdir layer
+          pip install -r requirements.txt -t layer
           pip list
 
       - name: CDK Diff Check

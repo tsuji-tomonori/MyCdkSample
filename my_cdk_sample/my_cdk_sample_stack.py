@@ -79,5 +79,5 @@ class MyCdkSampleStack(Stack):
         logs.LogGroup(
             self, build_resource_name("log", "cdk_sample_service"),
             log_group_name=loggroup_name,
-            retention=logs.RetentionDays.FIVE_DAYS,
+            retention=logs.RetentionDays.ONE_DAY,
         )

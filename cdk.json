@@ -2,6 +2,8 @@
   "app": "python app.py",
   "requireApproval": "never",
   "fail": true,
+  "versionReporting": false,
+  "pathMetadata": false,
   "watch": {
     "include": [
       "**"

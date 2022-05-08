@@ -35,17 +35,12 @@ jobs:
           npm install -g aws-cdk
           cdk --version
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v10.1
-
       - name: Setup CDK dependencies
         run: |
           pip install -r requirements-dev.txt
           pip list
-    
+
       - name: Setup Layer dependencies
-        if: contains(steps.changed-files.outputs.all_modified_files, 'requirements.txt')
         run: |
           mkdir -p layer/python
           pip install -r requirements.txt -t layer/python
@@ -54,7 +49,6 @@ jobs:
       - name: CDK Diff Check
         run: |
           cdk diff 2>&1 | tee ./comments
-          ls
         env:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -63,8 +57,6 @@ jobs:
       - name: Post comments
         if: contains(github.event_name, 'pull_request')
         run: |
-          ls
-          cat ./comments
           gh pr comment -F ./comments "${URL}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -77,3 +69,17 @@ jobs:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Upload cdk.out
+        if: contains(github.event_name, 'push')
+        run: |
+          uuid=`uuidgen`
+          echo ${uuid} > ./uuid
+          stack=`cdk ls 2>&1 | tr -d "\n"`
+          aws s3 cp ./cdk.out/ s3://${CDK_OUT_UPLOAD_BUCKET}/${stack}/${uuid}/ --recursive --exclude "*" --include "*.json"
+          aws s3 cp ./uuid s3://${CDK_OUT_UPLOAD_BUCKET}/${stack}/
+        env:
+          AWS_DEFAULT_REGION: 'ap-northeast-1'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          CDK_OUT_UPLOAD_BUCKET: ${{ secrets.CDK_OUT_UPLOAD_BUCKET }}

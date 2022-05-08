@@ -45,10 +45,11 @@ jobs:
           mkdir -p layer/python
           pip install -r requirements.txt -t layer/python
           pip list
+          find layer/python -type f | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm
 
       - name: CDK Diff Check
         run: |
-          cdk diff 2>&1 | tee ./comments
+          cdk diff --no-path-metadata --no-asset-metadata 2>&1 | tee ./comments
         env:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -64,7 +65,7 @@ jobs:
 
       - name: CDK Deploy
         if: contains(github.event_name, 'push')
-        run: cdk deploy
+        run: cdk deploy --no-path-metadata --no-asset-metadata
         env:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

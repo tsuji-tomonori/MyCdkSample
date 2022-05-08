@@ -59,6 +59,12 @@ class MyCdkSampleStack(Stack):
             layers=[layer]
         )
 
+        lambda_.Alias(
+            self, "alias",
+            alias_name="live",
+            version=fn.latest_version,
+        )
+
         loggroup_name = f"/aws/lambda/{fn.function_name}"
         logs.LogGroup(
             self, build_resource_name("log", "cdk_sample_service"),

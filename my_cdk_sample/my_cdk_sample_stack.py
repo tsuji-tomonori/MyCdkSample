@@ -36,6 +36,8 @@ class MyCdkSampleStack(Stack):
             description=DESCRIPTION
         )
 
+        id = f"a{str(uuid.uuid4()).replace('-', '')}"
+
         layer = lambda_.LayerVersion(
             self, build_resource_name("lyr", "cdk_sample"),
             code=lambda_.Code.from_asset("layer"),
@@ -56,7 +58,7 @@ class MyCdkSampleStack(Stack):
                 "HOGE": "hoge",
                 "HUGA": "huga",
             },
-            description=DESCRIPTION,
+            description=id,
             timeout=Duration.seconds(300),
             memory_size=256,
             role=role,
@@ -64,7 +66,7 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, f"{str(uuid.uuid4()).replace('-', '')[:5]}1",
+            self, id,
             alias_name="live",
             version=lambda_.Version(
                 self, "version",

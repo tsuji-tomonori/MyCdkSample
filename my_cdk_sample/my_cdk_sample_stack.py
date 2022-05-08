@@ -49,7 +49,7 @@ class MyCdkSampleStack(Stack):
             function_name=build_resource_name(
                 "lmd", "cdk_sample_service"),
             environment={
-                "LOG_LEVEL": "INFO",
+                "LOG_LEVEL": "ERROR",
             },
             description=DESCRIPTION,
             timeout=Duration.seconds(300),

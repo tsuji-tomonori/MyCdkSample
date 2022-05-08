@@ -58,7 +58,7 @@ class MyCdkSampleStack(Stack):
                 "HOGE": "hoge",
                 "HUGA": "123",
             },
-            description=id,
+            description=DESCRIPTION,
             timeout=Duration.seconds(300),
             memory_size=256,
             role=role,

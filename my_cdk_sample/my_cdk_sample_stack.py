@@ -63,7 +63,7 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, uuid.uuid4(),
+            self, str(uuid.uuid4()),
             alias_name="live",
             version=lambda_.Version(
                 self, "version",

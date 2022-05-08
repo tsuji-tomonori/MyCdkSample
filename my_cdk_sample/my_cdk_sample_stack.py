@@ -66,10 +66,10 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, id,
+            self, f"alias_live",
             alias_name="live",
             version=lambda_.Version(
-                self, "version",
+                self, id,
                 lambda_=fn,
                 removal_policy=cdk.RemovalPolicy.RETAIN,
             ),

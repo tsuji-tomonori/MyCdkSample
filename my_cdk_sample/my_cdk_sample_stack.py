@@ -36,7 +36,7 @@ class MyCdkSampleStack(Stack):
             description=DESCRIPTION
         )
 
-        id = f"{str(uuid.uuid4()).replace('-', '')[:5]}1"
+        id = f"a{str(uuid.uuid4()).replace('-', '')}"
 
         layer = lambda_.LayerVersion(
             self, build_resource_name("lyr", "cdk_sample"),

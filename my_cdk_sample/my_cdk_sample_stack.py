@@ -63,7 +63,7 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, f"{str(uuid.uuid4()).replace('-', '')}1",
+            self, f"{str(uuid.uuid4()).replace('-', '')[:5]}1",
             alias_name="live",
             version=lambda_.Version(
                 self, "version",

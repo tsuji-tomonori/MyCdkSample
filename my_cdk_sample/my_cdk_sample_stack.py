@@ -1,6 +1,3 @@
-import uuid
-
-import aws_cdk as cdk
 from aws_cdk import (
     Stack,
     aws_lambda as lambda_,
@@ -63,13 +60,9 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, str(uuid.uuid4()).replace("-", ""),
+            self, "alias",
             alias_name="live",
-            version=lambda_.Version(
-                self, "version",
-                lambda_=fn,
-                removal_policy=cdk.RemovalPolicy.RETAIN,
-            ),
+            version=fn.latest_version,
         )
 
         loggroup_name = f"/aws/lambda/{fn.function_name}"

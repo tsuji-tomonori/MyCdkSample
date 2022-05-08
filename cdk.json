@@ -4,6 +4,7 @@
   "fail": true,
   "versionReporting": false,
   "pathMetadata": false,
+  "assetMetadata": false,
   "watch": {
     "include": [
       "**"

@@ -56,7 +56,7 @@ class MyCdkSampleStack(Stack):
             environment={
                 "LOG_LEVEL": "ERROR",
                 "HOGE": "hoge",
-                "HUGA": "huga",
+                "HUGA": "123",
             },
             description=id,
             timeout=Duration.seconds(300),

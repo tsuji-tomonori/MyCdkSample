@@ -50,7 +50,7 @@ class MyCdkSampleStack(Stack):
                 "lmd", "cdk_sample_service"),
             environment={
                 "LOG_LEVEL": "ERROR",
-                "HOGE": "huge",
+                "HOGE": "hoge",
             },
             description=DESCRIPTION,
             timeout=Duration.seconds(300),

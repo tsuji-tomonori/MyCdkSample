@@ -66,7 +66,7 @@ class MyCdkSampleStack(Stack):
         )
 
         lambda_.Alias(
-            self, f"{fn.function_name}_alias_live",
+            self, f"alias_live",
             alias_name="live",
             version=lambda_.Version(
                 self, id,

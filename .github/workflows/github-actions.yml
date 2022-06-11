@@ -45,7 +45,6 @@ jobs:
         run: |
           npm install -g aws-cdk
           cdk --version
-          cdk bootstrap
 
       - name: Setup CDK dependencies
         run: |
@@ -58,6 +57,9 @@ jobs:
           pip install -r requirements.txt -t layer/python
           pip list
           find layer/python -type f | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm
+
+      - name: Boostrap
+        run: cdk bootstrap
 
       - name: CDK Diff Check
         run: |

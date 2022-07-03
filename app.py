@@ -10,7 +10,7 @@ from my_cdk_sample.my_cdk_sample_stack import MyCdkSampleStack
 @jsii.implements(cdk.IAspect)
 class ResourceTags:
     def visit(self, node):
-        Tags.of(node).add("resource", node.id)
+        Tags.of(node).add("resource", node.path)
 
 
 app = cdk.App()
